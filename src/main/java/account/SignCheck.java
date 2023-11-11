@@ -54,4 +54,20 @@ public class SignCheck {
                     return 3;
         return 0;
     }
+    
+    public int CheckTexts(String a,String AllowedChars,int Minimum,int Maximum){
+        String Text=a;
+        if(Text.isBlank())
+            return 1;
+        if(Text.length()<Minimum||Text.length()>Maximum)
+            return 2;
+        if(AllowedChars!=null)
+            for(int i=0;i<Text.length();i++)
+                if(AllowedChars.indexOf(Text.toLowerCase().charAt(i))==-1)
+                    return 3;
+        return 0;
+    }
+    //Use generics to combine
+    
+    
 }

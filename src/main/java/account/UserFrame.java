@@ -4,6 +4,12 @@
  */
 package account;
 
+import java.awt.Color;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author w1505
@@ -17,6 +23,8 @@ public class UserFrame extends javax.swing.JFrame {
             initComponents();
             idlabel.setText(String.valueOf(User.UserID));
             namelabel.setText(User.UserName);
+            proglabel.setText(String.valueOf(User.Progress));
+            lvlabel.setText(String.valueOf(User.Level));
     }
 
     /**
@@ -34,6 +42,13 @@ public class UserFrame extends javax.swing.JFrame {
         idlabel = new javax.swing.JLabel();
         namelabel = new javax.swing.JLabel();
         LogoutLabel = new java.awt.Label();
+        jLabel3 = new javax.swing.JLabel();
+        proglabel = new javax.swing.JLabel();
+        lvlabel = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
+        SaveHint = new javax.swing.JLabel();
+        PswdChange = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("User");
@@ -58,32 +73,64 @@ public class UserFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Progress");
+
+        proglabel.setText("Progress");
+
+        lvlabel.setText("Level");
+
+        jLabel6.setText("Level");
+
+        label1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        label1.setForeground(new java.awt.Color(0, 0, 255));
+        label1.setText("Savedata");
+        label1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                label1MouseClicked(evt);
+            }
+        });
+
+        SaveHint.setText("     ");
+
+        PswdChange.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        PswdChange.setForeground(new java.awt.Color(0, 0, 255));
+        PswdChange.setText("Change Password");
+        PswdChange.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PswdChangeMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SaveHint, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(idlabel))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(namelabel))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(WelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 213, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(LogoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel2)
+                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idlabel)
+                                    .addComponent(namelabel)
+                                    .addComponent(proglabel)
+                                    .addComponent(lvlabel)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(WelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(PswdChange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LogoutLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -99,13 +146,32 @@ public class UserFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(namelabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
-                .addComponent(LogoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(proglabel))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lvlabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(SaveHint, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PswdChange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LogoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
         WelcomeLabel.getAccessibleContext().setAccessibleName("WelcomeLabel");
         LogoutLabel.getAccessibleContext().setAccessibleName("LogoutLabel");
+        label1.getAccessibleContext().setAccessibleName("Save Data");
+        label1.getAccessibleContext().setAccessibleDescription("");
+        SaveHint.getAccessibleContext().setAccessibleName("SaveHint");
+        PswdChange.getAccessibleContext().setAccessibleName("PswdChange");
+        PswdChange.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -117,12 +183,69 @@ public class UserFrame extends javax.swing.JFrame {
         new SignInFrame().setVisible(true);
     }//GEN-LAST:event_LogoutLabelMouseClicked
 
+    private void label1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label1MouseClicked
+        try {
+            User.SaveData();        // TODO add your handling code here:
+            SaveHint.setText("Save Successfully");
+            SaveHint.setForeground(new Color(34,177,76));
+        } catch (SQLException ex) {
+            Logger.getLogger(UserFrame.class.getName()).log(Level.SEVERE, null, ex);
+            SaveHint.setForeground(Color.red);
+            SaveHint.setText("Save Failed");
+        }
+    }//GEN-LAST:event_label1MouseClicked
+
+    private void PswdChangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PswdChangeMouseClicked
+        String oldpswd=JOptionPane.showInputDialog(null,"Please Input The Old Password:","Hint",3);
+        
+        if(oldpswd.equals(User.Password))//Actually unsafe to check offline. However, it may not be that important when the whole system keeps defenseless
+        {
+            //So now we can check the new one.
+            String newpswd=JOptionPane.showInputDialog(null,"Please Input The New Password:","Hint",3);
+            SignCheck sc=new SignCheck();
+            int result=sc.CheckTexts(newpswd, null, 6, 20);
+            switch(result){
+                case 0:String newpswd2=JOptionPane.showInputDialog(null,"Please Input The New Password Again:","Hint",3);
+                if(newpswd2.equals(newpswd)){
+                    DerbyUser Dbu=new DerbyUser(User.UserName,User.Password);
+                try {
+                    Dbu.UpdateData("Account", "Password", newpswd);
+                    Dbu.Recheck();
+                    JOptionPane.showMessageDialog(null,"Change successfully!","Success",1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserFrame.class.getName()).log(Level.SEVERE, "Update Failed", ex);
+                    JOptionPane.showMessageDialog(null,"Update Failed!","Failed",0);
+                }
+                
+                }
+                else
+                    JOptionPane.showMessageDialog(null,"Please confirm your password","Failed",2);
+                break;
+                case 1:JOptionPane.showMessageDialog(null,"Password can not be null","Failed",2);
+                break;
+                case 2:JOptionPane.showMessageDialog(null,"Password should be at a length of 6 to 20","Failed",2);
+                break;
+                case 3:JOptionPane.showMessageDialog(null,"Illegal characters checked!","Failed",2);
+                
+            }
+        }
+        else
+        {JOptionPane.showMessageDialog(null,"Wrong Input!","Failed",2);}
+    }//GEN-LAST:event_PswdChangeMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Label LogoutLabel;
+    private java.awt.Label PswdChange;
+    private javax.swing.JLabel SaveHint;
     private java.awt.Label WelcomeLabel;
     private static javax.swing.JLabel idlabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private java.awt.Label label1;
+    private javax.swing.JLabel lvlabel;
     private static javax.swing.JLabel namelabel;
+    private javax.swing.JLabel proglabel;
     // End of variables declaration//GEN-END:variables
 }

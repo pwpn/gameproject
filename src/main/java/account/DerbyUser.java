@@ -15,6 +15,10 @@ import java.util.logging.Logger;
  *
  * @author w1505
  */
+//0 will be return if success
+//1 means the dublicate problem
+//2 As a public code of connection failure.
+//3 tells issues inside
 public class DerbyUser {
     private static final String url="jdbc:derby://localhost:1527/Account;create=true";
     private String UserName;
@@ -24,6 +28,23 @@ public class DerbyUser {
     private boolean isConnected=false;
     private boolean isStateCreated=false;
     public DerbyUser(String un,String pswd){UserName=un;Password=pswd;}
+    //Only the register need to input these actually, so the below one is still ok.
+    public DerbyUser(){}
+    public void Recheck() throws SQLException{
+        ResultSet rs;
+        if(Connect()&&StatementCreate()){
+            //Select password from account where userid=10001
+            rs=statement.executeQuery("Select password,username,progress,level from account where userid="+String.valueOf(User.UserID));
+            rs.next();
+            this.Password=rs.getString(1);
+            this.UserName=rs.getString(2);
+            User.UserName=this.UserName;
+            User.Password=this.Password;
+            User.Progress=rs.getInt(3);
+            User.Level=rs.getInt(4);
+        }
+    
+    }
     public boolean Connect(){
         if(!isConnected)
             try {
@@ -106,6 +127,24 @@ public class DerbyUser {
             default:return "\""+n+"\"";
         }
     }
+        public int UpdateData(String TableName,String Column,String Content) throws SQLException{
+            ResultSet rs;
+            if(Connect()&&StatementCreate()){
+                //Update Account set password='123456' where userid=123
+                statement.executeUpdate("Update "+TableName+" set "+Column+"='"+Content+"' where userid="+User.UserID);
+            }else
+                return 2;
+                return 0;
+        }
+        public int UpdateData(String TableName,String Column,int Content) throws SQLException{
+            ResultSet rs;
+            if(Connect()&&StatementCreate()){
+                //Update Account set password='123456' where userid=123
+                statement.executeUpdate("Update "+TableName+" set "+Column+"="+String.valueOf(Content)+" where userid="+User.UserID);
+            }else
+                return 2;
+                return 0;
+        }
         public Statement getStatement(){
             return statement;
         }

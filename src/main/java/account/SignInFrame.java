@@ -218,6 +218,10 @@ public class SignInFrame extends javax.swing.JFrame {
                         User.UserName=Username;
                         User.Password=Password;
                         User.isOnline=true;
+                        rs = Dbu.getStatement().executeQuery("select Progress,Level from account where userid="+String.valueOf(User.UserID));
+                        rs.next();
+                        User.Progress=rs.getInt(1);
+                        User.Level=rs.getInt(2);
                         this.dispose();
                         java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
@@ -236,7 +240,7 @@ public class SignInFrame extends javax.swing.JFrame {
                }
            }else{
            this.HintLabel.setText("Connection Failed");
-           this.HintLabel.setForeground(new Color(256,0,0));
+           this.HintLabel.setForeground(new Color(255,0,0));
            }
        }
     }//GEN-LAST:event_SignInButtonActionPerformed

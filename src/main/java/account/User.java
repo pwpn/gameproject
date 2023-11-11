@@ -4,18 +4,54 @@
  */
 package account;
 
+import java.sql.SQLException;
+import java.util.logging.Logger;
+
 /**
  *
  * @author w1505
  */
 public class User {
-   public static int UserID=0;
+   static int UserID=0;
    static String UserName;
    static String Password;
+   static int Level=0;
+   static int Progress=0;
    static boolean isOnline=false;
     User(int userid,String username,String password){
         UserID=userid;
         UserName=username;
         Password=password;
+    }
+    public static boolean isOnline(){return isOnline;}
+    public static int getUserID(){return UserID;}
+    public static int getProgress(){return Progress;}
+    public static void setProgress(int progress){User.Progress=progress;}
+    public static int getLevel(){return Level;}
+    public static void setLevel(int level){User.Level=level;}
+    public static void SaveData() throws SQLException{
+        DerbyUser Dbu=new DerbyUser(UserName,Password);
+        Dbu.UpdateData("Account", "Level", User.Level);
+        Dbu.UpdateData("Account", "Progress", User.Progress);
+    }
+    public static void GetSave(){
+        if(!isOnline)
+            return;
+       DerbyUser Dbu=new DerbyUser();
+       try {
+           Dbu.Recheck();
+       } catch (SQLException ex) {
+           Logger.getLogger(User.class.getName()).log(java.util.logging.Level.SEVERE, "Failed when check the save", ex);
+       }
+    }
+    public static void stateCheck(){
+        if(isOnline){
+             GetSave();
+             new UserFrame().setVisible(true);
+        }
+        else
+        {
+            new SignInFrame().setVisible(true);
+        }
     }
 }
