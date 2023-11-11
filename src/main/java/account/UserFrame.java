@@ -191,10 +191,13 @@ public class UserFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void LogoutLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutLabelMouseClicked
-        User.UserID=0;
-        User.isOnline=false;
-        dispose();
-        new SignInFrame().setVisible(true);
+        if(!User.isPlaying)
+            {User.UserID=0;
+            User.isOnline=false;
+            dispose();
+            new SignInFrame().setVisible(true);}
+        else
+            JOptionPane.showMessageDialog(null,"You can not logout while playing","Failed to logout",1);
     }//GEN-LAST:event_LogoutLabelMouseClicked
 
     private void label1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label1MouseClicked

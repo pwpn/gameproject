@@ -74,6 +74,7 @@ public class Mygameplay extends JFrame{
             @SuppressWarnings("CallToThreadStopSuspendOrResumeManager")
 		public void actionPerformed(ActionEvent e)
 		{   int prog=0;
+                    User.isPlaying=true;
                     //Get Save when start
                     User.GetSave();
                     if(!User.isOnline())

@@ -20,11 +20,13 @@ public class User {
    static boolean isOnline=false;
    static SignInFrame sf=new SignInFrame();
    static UserFrame uf=new UserFrame();
+   
     User(int userid,String username,String password){
         UserID=userid;
         UserName=username;
         Password=password;
     }
+    public static boolean isPlaying=false;
     public static boolean isOnline(){return isOnline;}
     public static int getUserID(){return UserID;}
     public static int getProgress(){return Progress;}
