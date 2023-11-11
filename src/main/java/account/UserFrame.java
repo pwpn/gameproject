@@ -5,10 +5,15 @@
 package account;
 
 import java.awt.Color;
+import static java.lang.Thread.sleep;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -49,6 +54,7 @@ public class UserFrame extends javax.swing.JFrame {
         label1 = new java.awt.Label();
         SaveHint = new javax.swing.JLabel();
         PswdChange = new java.awt.Label();
+        datelabel = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("User");
@@ -101,6 +107,8 @@ public class UserFrame extends javax.swing.JFrame {
             }
         });
 
+        datelabel.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,18 +124,21 @@ public class UserFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel2)
-                                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(idlabel)
                                     .addComponent(namelabel)
                                     .addComponent(proglabel)
-                                    .addComponent(lvlabel)))))
+                                    .addComponent(lvlabel)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(datelabel, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(WelcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PswdChange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LogoutLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -154,14 +165,16 @@ public class UserFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(lvlabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SaveHint, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(PswdChange, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(1, 1, 1)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LogoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(LogoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(datelabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -172,6 +185,7 @@ public class UserFrame extends javax.swing.JFrame {
         SaveHint.getAccessibleContext().setAccessibleName("SaveHint");
         PswdChange.getAccessibleContext().setAccessibleName("PswdChange");
         PswdChange.getAccessibleContext().setAccessibleDescription("");
+        datelabel.getAccessibleContext().setAccessibleName("dateLabel");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -186,7 +200,9 @@ public class UserFrame extends javax.swing.JFrame {
     private void label1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label1MouseClicked
         try {
             User.SaveData();        // TODO add your handling code here:
+            Date date=new Date();
             SaveHint.setText("Save Successfully");
+            datelabel.setText("Last save time:"+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds());
             SaveHint.setForeground(new Color(34,177,76));
         } catch (SQLException ex) {
             Logger.getLogger(UserFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -194,8 +210,14 @@ public class UserFrame extends javax.swing.JFrame {
             SaveHint.setText("Save Failed");
         }
     }//GEN-LAST:event_label1MouseClicked
-
+    public void CheckData(){
+        namelabel.setText(User.UserName);
+        idlabel.setText(String.valueOf(User.UserID));
+        proglabel.setText(String.valueOf(User.Progress));
+        lvlabel.setText(String.valueOf(User.Level));
+    }
     private void PswdChangeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PswdChangeMouseClicked
+        SaveHint.setText("");
         String oldpswd=JOptionPane.showInputDialog(null,"Please Input The Old Password:","Hint",3);
         
         if(oldpswd.equals(User.Password))//Actually unsafe to check offline. However, it may not be that important when the whole system keeps defenseless
@@ -238,6 +260,7 @@ public class UserFrame extends javax.swing.JFrame {
     private java.awt.Label PswdChange;
     private javax.swing.JLabel SaveHint;
     private java.awt.Label WelcomeLabel;
+    private java.awt.Label datelabel;
     private static javax.swing.JLabel idlabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

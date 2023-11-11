@@ -4,6 +4,7 @@
  */
 package group21.gameproject;
 
+import account.User;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -508,6 +509,9 @@ public class Tatakai4 extends JFrame{
         }
         
         if(boss4.b1nowblood<=0&&isdead){       fsbg.stop();
+            //Signed for that we could see nothing then.
+            //User.setProgress(3);
+            //User.setLevel(tm.level);
             System.out.println("win");
                 try {
                     Thread.sleep(500);this.dispose();  

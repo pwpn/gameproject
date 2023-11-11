@@ -219,7 +219,7 @@ public class SignUpFrame extends javax.swing.JFrame {
             break;
             case 2:this.HintLabel.setText("Username should be at the length of 3 to 10");
             break;
-            case 3:this.HintLabel.setText("Invailed username");
+            case 3:this.HintLabel.setText("Invailed username, use letters&numbers only");
         }
         if(ContextConfirmed){
             this.HintLabel.setForeground(new Color(0,0,0));

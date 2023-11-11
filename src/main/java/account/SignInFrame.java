@@ -21,13 +21,12 @@ import java.util.logging.Logger;
  * @author w1505
  */
 public class SignInFrame extends javax.swing.JFrame {
-    public boolean isOnline=false;
     /**
      * Creates new form SignUpFrame
      */
     public SignInFrame() {
         if(User.isOnline){
-            new UserFrame().setVisible(true);
+            User.uf.setVisible(true);
             dispose();
         }
         initComponents();
@@ -185,7 +184,7 @@ public class SignInFrame extends javax.swing.JFrame {
        String Password=sc.PasswordTrans(PasswordField);
        DerbyUser Dbu=new DerbyUser(Username,Password);
        if(sc.CheckTexts(UserNameText, "abcdefghijklmnopqrstuvwxyz12345667890", 3, 10)+sc.CheckTexts(PasswordField, null, 6, 20)>0){
-           this.HintLabel.setText("Please check your input");
+           this.HintLabel.setText("Username has illegal characters");
            this.HintLabel.setForeground(new Color(255,0,0));
        }else{
            this.HintLabel.setText("Connecting to the server...");
@@ -222,10 +221,11 @@ public class SignInFrame extends javax.swing.JFrame {
                         rs.next();
                         User.Progress=rs.getInt(1);
                         User.Level=rs.getInt(2);
+                        User.CheckUserFrame();
                         this.dispose();
                         java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
-                            new UserFrame().setVisible(true);
+                            User.uf.setVisible(true);
                         } });
                     }
                     else{

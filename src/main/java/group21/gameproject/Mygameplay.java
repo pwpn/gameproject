@@ -4,6 +4,7 @@
  */
 package group21.gameproject;
 
+import account.User;
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,6 +21,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.AncestorListener;
 import javax.swing.text.View;
@@ -39,6 +41,8 @@ public class Mygameplay extends JFrame{
      static Mygameplay output=null;
     
     public static void main(String[] args){
+        //Try to login here
+        User.stateCheck();
         output=new Mygameplay();
    }
     
@@ -69,7 +73,16 @@ public class Mygameplay extends JFrame{
 	    @Override
             @SuppressWarnings("CallToThreadStopSuspendOrResumeManager")
 		public void actionPerformed(ActionEvent e)
-		{ 
+		{   int prog=0;
+                    //Get Save when start
+                    User.GetSave();
+                    if(!User.isOnline())
+                        JOptionPane.showMessageDialog(null,"未登录，游戏记录将不会记载！","Guest",0);
+                    else
+                        prog=User.getProgress();
+                    //Dispose the frame anyway.
+                    System.out.print(User.isOnline());
+                    User.DisposeSignInFrame();
                     System.out.println("yes");
                     output.dispose();
                     sbg.stop();
@@ -78,7 +91,7 @@ public class Mygameplay extends JFrame{
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Mygameplay.class.getName()).log(Level.SEVERE, null, ex);
                 } 
-                     new GameFirstP(new Theman("src/data/pic/photo/actor_d.gif",0,0,new JFrame()),1);
+                     new GameFirstP(new Theman("src/data/pic/photo/actor_d.gif",0,0,new JFrame()),1+prog);
 		}			
 	} );
         

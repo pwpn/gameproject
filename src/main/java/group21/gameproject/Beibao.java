@@ -35,7 +35,6 @@ public class Beibao extends JFrame{
     private Theman tm;
     private Image backscreen=null;
     private JFrame jff=new JFrame();
-//    private JPanel jpp=new JPanel();
     private backgrou bg=new backgrou();
     private JButton tujian=new JButton();
     
@@ -45,14 +44,8 @@ public class Beibao extends JFrame{
     
     public Beibao(Theman tm){
         this.tm=tm;
-//        
-        
         this.setBounds(400, 150, 400, 508);
         this.setIconImage(new ImageIcon("src/data/pic/photo/008.png").getImage());
-//        bg.setLayout(null);
-//        this.setLayout(null);
-
-
         this.setBackground(Color.yellow);  
 //        jpp.setBounds(50,50,50,50);
 //        jpp.add(beibei());

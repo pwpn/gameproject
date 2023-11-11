@@ -8,9 +8,6 @@ group21\gameproject\IsFight$2.class
 group21\gameproject\Tatakai$1.class
 account\SignUpFrame$3.class
 group21\gameproject\Tatakai$cs.class
-gamedata\Character.class
-group21\gameproject\JavaGameinonemonth.class
-gamedata\Skill.class
 group21\gameproject\Beibao.class
 group21\gameproject\Tatakai4$7.class
 group21\gameproject\Tatakai3$6.class
@@ -30,7 +27,6 @@ group21\gameproject\IsFight.class
 account\SignCheck.class
 group21\gameproject\Tatakai3$7.class
 group21\gameproject\Tatakai2$2.class
-gamedata\TestFrame.class
 account\UserFrame$3.class
 group21\gameproject\Tatakai2$cs.class
 group21\gameproject\Tatakai4$5.class
@@ -84,7 +80,6 @@ group21\gameproject\Tatakai$4.class
 group21\gameproject\GameFirstP$Keyhappen.class
 group21\gameproject\Yourself.class
 group21\gameproject\bosss.class
-gamedata\SkillPanel.class
 account\SignInFrame.class
 account\SignInFrame$3.class
 group21\gameproject\Tatakai4$2.class

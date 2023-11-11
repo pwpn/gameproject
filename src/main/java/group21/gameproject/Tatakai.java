@@ -4,6 +4,7 @@
  */
 package group21.gameproject;
 
+import account.User;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -496,8 +497,10 @@ public class Tatakai extends JFrame{
         
         if(boss1.b1nowblood<=0&&isdead){       fsbg.stop();
             System.out.println("win");
-            
             tm.level++;tm.update();
+            User.setProgress(1);
+            User.setLevel(tm.level);
+            
             Winorlose ws=new Winorlose(tm,1,2);
             ys.updateys(tm);
             ys.returnyou();

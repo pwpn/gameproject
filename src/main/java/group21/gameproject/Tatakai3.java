@@ -8,6 +8,7 @@
  */
 package group21.gameproject;
 
+import account.User;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -498,6 +499,8 @@ public class Tatakai3 extends JFrame{
             System.out.println("win");
             Winorlose ws=new Winorlose(tm,1,4);
             tm.level++;tm.update();
+            User.setProgress(3);
+            User.setLevel(tm.level);
                 try {
                     Thread.sleep(500);this.dispose();  
                 } catch (InterruptedException ex) {

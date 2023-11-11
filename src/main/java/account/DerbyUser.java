@@ -21,6 +21,8 @@ import java.util.logging.Logger;
 //3 tells issues inside
 public class DerbyUser {
     private static final String url="jdbc:derby://localhost:1527/Account;create=true";
+    private static final String DerbyUserName="Test";
+    private static final String DerbyUserPassword="123";
     private String UserName;
     private String Password;
     Connection connection;
@@ -33,7 +35,7 @@ public class DerbyUser {
     public void Recheck() throws SQLException{
         ResultSet rs;
         if(Connect()&&StatementCreate()){
-            //Select password from account where userid=10001
+            //Select password from account where userid=...
             rs=statement.executeQuery("Select password,username,progress,level from account where userid="+String.valueOf(User.UserID));
             rs.next();
             this.Password=rs.getString(1);
@@ -48,12 +50,17 @@ public class DerbyUser {
     public boolean Connect(){
         if(!isConnected)
             try {
-                connection=DriverManager.getConnection(url,"Test","123");
+                //Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                connection=DriverManager.getConnection(url,DerbyUserName,DerbyUserPassword);
             } catch (SQLException ex) {
                 Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Connection Failed", ex);
                 isConnected=false;
                 return false;
             } 
+            /*
+            catch (ClassNotFoundException ex) {
+            Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Driver not found", ex);
+        } */
         return true;
     }
     public boolean StatementCreate(){
