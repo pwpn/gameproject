@@ -88,12 +88,13 @@ public class Paintout extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Paintout.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 po=new Paintout();
-                Image img=Toolkit.getDefaultToolkit().getImage("src/data/rsc/pic/008.png");
+                Image img=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/008.png");
                 po.setIconImage(img);
                 po.setVisible(true);
             }

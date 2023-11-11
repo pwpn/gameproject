@@ -20,37 +20,37 @@ import javax.swing.JFrame;
  *
  * @author Lenovo
  */
-public class Boss1 extends Boss{
+public class Boss2 extends Boss{
     
-    private int width=100;
-    private int height=107;
+    private int width=170;
+    private int height=331;
     
     public int x;
     public int y;
     
-    public double b1attack=100;
-    public double b1defence=100;
+    public double b1attack=300;
+    public double b1defence=200;
 
     public int b1speed=3;
-    public double b1blood=800;
+    public double b1blood=1000;
     
-    public double b1nowattack=100;
-    public double b1nowdefence=100;
-    public double b1nowblood=800;
+    public double b1nowattack=300;
+    public double b1nowdefence=200;
+    public double b1nowblood=1000;
     
     public int blattlev;
     public int bldeflev;
     
     public Image[] imgg=new Image[9];
     
-    public Boss1(String img,int x,int y,JFrame jf){
+    public Boss2(String img,int x,int y,JFrame jf){
         
         super(img,x,y,jf);
         
             this.x=x;
             this.y=y;
             
-            b1blood=800;
+            b1blood=1000;
             b1speed=2;
             
             blattlev=0;
@@ -60,7 +60,7 @@ public class Boss1 extends Boss{
 
         for(int i = 1;i < imgg.length + 1;i ++){
                 try{
-                    imgg[i - 1] = ImageIO.read(new File("src/data/pic/boss1/boss1" + i + ".png"));
+                    imgg[i - 1] = ImageIO.read(new File("src/data/pic/boss2/boss2" + i + ".png"));
                 } catch (IOException ex) {
                     Logger.getLogger(Boss1.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -87,22 +87,18 @@ public class Boss1 extends Boss{
 
 
     public double skill1(double a,double b) {
-        if((this.b1nowblood+10)>=b1blood){
-            this.b1nowblood=b1blood;
-        }else{
-            this.b1nowblood+=10;
-        }
-        System.out.println(1);
-        return (a/b)*120;
-    }
-
-
-    public int skill2() {
         if((this.b1nowblood+50)>=b1blood){
             this.b1nowblood=b1blood;
         }else{
             this.b1nowblood+=50;
         }
+        System.out.println(1);
+        return 1;
+    }
+
+
+    public double skill2(double a,double b) {
+
         if((blattlev+2)<=10){
             blattlev+=2;
         }else if(blattlev==9){
@@ -110,29 +106,31 @@ public class Boss1 extends Boss{
         }
         this.b1nowattack=b1attack+((b1attack/10)*blattlev);        
                 System.out.println(2);
-        return 1;
+        return (a/b)*100;
     }
 
 
     public double skill3(double a,double b) {
-        if((blattlev+1)<=10){
-            blattlev+=1;
+        if((blattlev+4)<=10){
+            blattlev+=4;
+        }else{
+            blattlev=10;
         }
         
         this.b1nowattack=b1attack+((b1attack/10)*blattlev);            
                 System.out.println(3);
-        return (a/b)*120;
+        return 1;
     }
 
 
-    public int skill4() {
-        if((this.b1nowblood+300)>=b1blood){
+    public double skill4(double a,double b) {
+        if((this.b1nowblood+50)>=b1blood){
             this.b1nowblood=b1blood;
         }else{
-            this.b1nowblood+=300;
+            this.b1nowblood+=50;
         }
                 System.out.println(4);
-        return 1;
+        return (a/b)*150;
     }
     
     public boolean alive(){
@@ -160,11 +158,6 @@ public class Boss1 extends Boss{
     }
     
     public void returnbo(){
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Boss1.class.getName()).log(Level.SEVERE, null, ex);
-        }
         this.b1nowattack=this.b1attack;
         this.b1nowblood=this.b1blood;
         this.b1nowdefence=this.b1defence;

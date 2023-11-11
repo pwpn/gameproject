@@ -4,6 +4,9 @@
  */
 package gamedata;
 
+import static java.lang.Math.random;
+import java.util.Random;
+
 /**
  *
  * @author w1505
@@ -24,6 +27,11 @@ public abstract class Character {
     private int speed;
     private int healthpoint;
     private int level;
-    //The skills it may use, maximum 10.
+    //The skills it may use, maximum 4.
+    private Skill[] Skillset=new Skill[4];
     
+    public void SkillRelease(){
+        Random rnd=new Random();
+    
+    }
 }

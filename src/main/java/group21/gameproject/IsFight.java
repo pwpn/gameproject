@@ -11,6 +11,8 @@ package group21.gameproject;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,18 +25,18 @@ public class IsFight {
      * @param tm
      * @param boss1
      */
-    public static void main(String[] args){
-        new IsFight(new Theman("src/data/rsc/pic/actor_d.gif",0,0,new JFrame()),1);
-    }
+//    public static void main(String[] args){
+//        new IsFight(new Theman("src/photo/actor_d.gif",0,0,new JFrame()),1);
+//    }
     
-    static int i=0;
+    private int i=0;
     
-    public IsFight(Theman tm,int i){
+    public IsFight(Theman tm,int i,JFrame je){
 
         this.i=i;
         JFrame frame = new JFrame("是否挑战？");
         frame.setBounds(400, 300, 400, 100);
-        frame.setIconImage(new ImageIcon("src/data/rsc/pic/008.png").getImage());
+        frame.setIconImage(new ImageIcon("src/data/pic/photo/008.png").getImage());
 
         /*
         JDialog d1 = new JDialog(frame, "模式对话框", true);
@@ -51,7 +53,17 @@ public class IsFight {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                new Tatakai(tm,i);//(tm,boss1);
+                switch(i){
+                    case 1:
+                        new Tatakai(tm);break;
+                    case 2:
+                        new Tatakai2(tm);break;
+                    case 3:
+                        new Tatakai3(tm);break;
+                    case 4:
+                        new Tatakai4(tm);break;                        
+                }//(tm,boss1);
+                je.dispose();
 //                tata.repaint();
             }
         });
@@ -61,7 +73,6 @@ public class IsFight {
                 frame.dispose();
             }
         });
-
         //把按钮添加到frame中
         frame.add(b1);
         frame.add(b2,BorderLayout.SOUTH);
@@ -72,4 +83,5 @@ public class IsFight {
         frame.setDefaultCloseOperation(2);
 
     }
+    
 }

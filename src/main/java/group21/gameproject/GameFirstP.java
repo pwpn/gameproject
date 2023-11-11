@@ -36,34 +36,44 @@ import javax.swing.text.View;
 
 public class GameFirstP extends JFrame{
     
-    SoundBG sbg=new SoundBG("src/data/rsc/sound/placebgm.wav");
+    SoundBG sbg=new SoundBG("src/data/music/placebgm.wav");
     
-    public static int bosswho=1;
+    private static int bosswho=1;
     
     Image offScreemImage;//=this.createImage(800, 499);
 //    Graphics gImage;
     
-    Theman tm= new Theman("src/data/rsc/pic/actor_d.gif",0,0,this);
+    Theman tm;
 //    
-    Boss1 boss1=new Boss1("src/data/rsc/pic/boss1.png",500,50,this);
+    Boss boss;
     
     JButton jbb=new JButton();
 
 //    GameFirstP gp;
     
-    public static JFrame basedi=new JFrame();
-    public paintt pa=new paintt();
+    private JFrame basedi=new JFrame();
+    private paintt pa=new paintt();
     
-//    public static void main(String[] args){
-//        new GameFirstP().gamesta();
-//    }
-
-//    public void gamesta(){
-    public GameFirstP(){
+    int jindu=0;
+    
+    
+    public GameFirstP(Theman tm,int jindu){
+        this.jindu=jindu;System.out.println("jinduis"+jindu);
+        switch(jindu){
+            case 1:
+                boss=new Boss1("src/data/pic/photo/boss1.png",500,50,this);break;
+            case 2:
+                boss=new Boss2("src/data/pic/photo/boss2.png",500,10,this);break;
+            case 3:
+                boss=new Boss3("src/data/pic/photo/boss3.png",500,50,this);break;
+            case 4:
+                boss=new Boss4("src/data/pic/photo/boss4.png",500,10,this);break;
+        }
+        this.tm=tm;
         sbg.start();
         inti();
         basedi.add(pa);
-        basedi.setIconImage(new ImageIcon("src/data/rsc/pic/008.png").getImage());
+        basedi.setIconImage(new ImageIcon("src/data/pic/photo/008.png").getImage());
         basedi.setLocationRelativeTo(null);
         basedi.setResizable(false);
 //        basedi.setVisible(true);
@@ -99,12 +109,12 @@ public class GameFirstP extends JFrame{
     }
     
     private void addJB(){
-        jbb.setIcon(new ImageIcon("src/data/rsc/pic/truebutton.png"));
+        jbb.setIcon(new ImageIcon("ssrc/data/pic/photo/truebutton.png"));
         jbb.setBounds(30, 280, 90, 90);
         jbb.setBorderPainted(false);
         jbb.setBorder(null);
         jbb.setContentAreaFilled(false);
-        jbb.setRolloverIcon(new ImageIcon("src/data/rsc/pic/button.png"));
+        jbb.setRolloverIcon(new ImageIcon("src/data/pic/photo/button.png"));
     }
 
     private class Keyhappen implements KeyListener {
@@ -179,17 +189,18 @@ public class GameFirstP extends JFrame{
 //                }
 ////              System.out.println("false");
 //            }
-            int timerDelay = 40;
+            int timerDelay = 60;
             
-            new Timer(timerDelay, new ActionListener(){
-                public void actionPerformed(ActionEvent e) {
-                    tm.move();
-    //                System.out.println(666);
-                 paintre();  }}).start();
+            new Timer(timerDelay, (ActionEvent e1) -> {
+                tm.move();
+                //                System.out.println(666);
+                paintre();
+            }).start();
             
-            if(tm.getRec().intersects(boss1.getRec())){
+            System.out.println(tm.x);            System.out.println(boss.x);
+            if(tm.getRec().intersects(boss.getRec())){
                 tm.setistouched(true);
-                IsFight isfight=new IsFight(tm,1);
+                IsFight isfight=new IsFight(tm,jindu,basedi);
 //              sbg.wait();
 //                sbg.stop();
                 sbg.suspend();
@@ -206,8 +217,7 @@ public class GameFirstP extends JFrame{
             
 //            if(tm.getistouched()){
 //                IsFight isfight=new IsFight(tm,boss1);
-////              sbg.isplay=false;
-////              
+////              sbg.isplay=false;    
 //            }
         }
     }
@@ -230,15 +240,25 @@ class paintt extends JPanel{
         }
 //        	 获得图片画笔
         Graphics gImage =offScreemImage.getGraphics();
-        
-        Image background=Toolkit.getDefaultToolkit().getImage("src/data/rsc/pic/111.png");
+        Image background;
+        switch(jindu){
+            case 1:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/111.png");
+                break;
+            case 2:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/222.png");
+                break;
+            case 3:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/333.png");
+                break;
+            case 4:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/444.png");
+                break;
+            default:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/111.png");break;
+        }
         gImage.drawImage(background, 0, 0, this);
         
         
 //        tm= new Theman("src/photo/actor_d.gif",0,0,gp,gImage);
 //        System.out.println("???");
-        tm.paintSelft(gImage);
-        boss1.paintSelft(gImage);
+       
+        boss.paintSelft(gImage); tm.paintSelft(gImage);
         //?
 
         g.drawImage(offScreemImage, 0, 0, null);

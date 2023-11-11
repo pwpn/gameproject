@@ -32,13 +32,22 @@ public class Yourself extends GameObject{
     public JFrame jf;
     private Theman tm;
     
-    private int attack;
+    private double attack;
     private int speed;
-    private int defence;
+    private double defence;
     private int level;
     private double blood;
+    
+    public int yourspeed;
+    
+    //战斗中
+    public double yourattack;
+    public double yourdefence;
     public double yourblood;
     public double lastblood;
+    
+    public int attlev=0;
+    public int deflev=0;
 	
     public Yourself(String img,int x,int y,JFrame jf,Theman tm){	
         
@@ -55,6 +64,10 @@ public class Yourself extends GameObject{
         this.defence=tm.defence;
         this.speed=tm.speed;
         this.blood=tm.blood;
+        
+        yourspeed=speed;
+        yourattack=attack;
+        yourdefence=defence;
         yourblood=blood;
         lastblood=blood;
     }
@@ -70,25 +83,74 @@ public class Yourself extends GameObject{
         return new Rectangle(x,y,img.getWidth(gp),img.getWidth(gp));
     }
     
-    public void chaobisha(){
+    public double chaobisha(double yourattck,double bossdefence ){
+        if((attlev+2)<=10){
+            attlev+=2;
+        }else if(attlev==9){
+            attlev+=1;
+        }
+        if((deflev+2)<=10){
+            deflev+=2;
+        }else if(deflev==9){
+            deflev+=1;
+        }
+
+        this.yourattack=attack+((attack/10)*attlev);
+        this.yourdefence=defence+((defence/10)*deflev);
+        
         System.out.println("ccc");
+        
+        return (yourattack/bossdefence)*160;
     }
     
     public void jineng1(){
-        lastblood=yourblood;
-        yourblood+=100;
+//        lastblood=yourblood;
+//        yourblood+=100;
 //        System.out.println("1");
+
+        if((attlev+2)<=10){
+            attlev+=2;
+        }else if(attlev==9){
+            attlev+=1;
+        }
+        if((deflev+2)<=10){
+            deflev+=2;
+        }else if(deflev==9){
+            deflev+=1;
+        }
+        this.yourattack=attack+((attack/10)*attlev);
+        this.yourdefence=defence+((defence/10)*deflev);
     }
-    public void jineng2(){
-                lastblood=yourblood;
-                yourblood-=100;
+    
+    public double jineng2(double yourattck,double bossdefence){
+//                lastblood=yourblood;
+//                yourblood-=100;
 //                System.out.println("2");
+           if((yourblood+50)<=blood){
+               yourblood+=50;
+           }else if(yourblood<blood){
+               yourblood=blood;
+           }
+           
+        return (yourattack/bossdefence)*80;
     }
-    public void jineng3(){
+    public double jineng3(double yourattck,double bossdefence){
+        
+        if((attlev+1)<=10){
+            attlev+=1;
+        }
+        this.yourattack=attack+((attack/10)*attlev);        
+//        yourblood-=100;
 //                System.out.println("3");
+        return (yourattack/bossdefence)*120;
     }
     public void jineng4(){
-//                System.out.println("4");
+           if((yourblood+200)<=blood){
+               yourblood+=200;
+           }else if(yourblood<blood){
+               yourblood=blood;
+           }
+//      System.out.println("4");
     }
     
     public boolean alive(){
@@ -115,5 +177,23 @@ public class Yourself extends GameObject{
     
     public double getlastblood(){
         return this.lastblood;
+    }
+    
+    public void returnyou(){
+        this.yourattack=attack;
+        this.yourspeed=speed;
+        this.yourattack=attack;
+        this.yourdefence=defence;
+        this.yourblood=blood;
+        this.lastblood=blood;      
+        this.attack=0;
+        this.attlev=0;
+    }
+    public void updateys(Theman tm){
+        this.level=tm.level;
+        this.attack=tm.attack;
+        this.defence=tm.defence;
+        this.speed=tm.speed;
+        this.blood=tm.blood;        
     }
 }

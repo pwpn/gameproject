@@ -26,7 +26,7 @@ public class Soundbgm {
     private String file="bgm.wav";
     
     void loadSound() throws UnsupportedAudioFileException{
-        File soundFile = new File("src/data/rsc/sound/bgm.wav");
+        File soundFile = new File("src/data/music/bgm.wav");
         try {
         System.out.println("music");
            URL url = soundFile.toURL();
@@ -41,6 +41,8 @@ public class Soundbgm {
             } catch (IOException ex) {
                 Logger.getLogger(Soundbgm.class.getName()).log(Level.SEVERE, null, ex);
             }
+//            ap.play();
+//           ap.loop();
 //            ap.play();
 //           ap.loop();
         } catch (MalformedURLException ex) {

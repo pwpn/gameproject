@@ -22,11 +22,11 @@ public class Theman extends GameObject{
     
 //    public Graphics gh=null;
     
-    public int attack;
-    public int defence;
-    public int level;
-    public int blood;
-    public int speed;
+    public double attack=100;
+    public double defence=50;
+    public int level=1;
+    public double blood=600;
+    public int speed=1;
     
         
     private static boolean istouched=false;
@@ -38,6 +38,7 @@ public class Theman extends GameObject{
     private static int m_x=200;
     private static int m_y=300;
     
+    //走路
     private int foot=3;
     
     public int width=32;
@@ -46,20 +47,24 @@ public class Theman extends GameObject{
     public Theman(String img,int x,int y,JFrame jf){
         
         super(img,x,y,jf);
-        
-        attack=300;
-        defence=50;
-        level=1;
-        blood=600;
-        speed=1;
+              
 
+        this.attack=attack+20*(level-1);
+        this.blood=blood+50*(level-1);
+        this.defence=defence+10*(level-1);
         
 //        System.out.println("jhhh");
         setImg(img);
     }
     
-    public void update(int lev){
-        
+    public void update(){
+        x = 200;
+        y = 300;
+        m_x=200;
+        m_y=300;
+        this.attack=attack+20*(level-1);
+        this.blood=blood+50*(level-1);
+        this.defence=defence+10*(level-1); 
     }
     
     public void strong(int a,int d,int b){
@@ -164,9 +169,9 @@ public class Theman extends GameObject{
     
     public void hittouch(){
         istouched=false;
-        Boss1 boss1=this.gp.boss1;
+        Boss boss=this.gp.boss;
 //        System.out.println(" "+this.x+" "+this.y );
-        if(this.getRec().intersects(boss1.getRec())) {
+        if(this.getRec().intersects(boss.getRec())) {
             istouched=true;
 //            System.out.println("666666666666");
 	}	  

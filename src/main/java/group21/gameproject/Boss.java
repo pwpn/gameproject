@@ -15,7 +15,7 @@ import javax.swing.JFrame;
  * @author Lenovo
  */
 public abstract class Boss extends GameObject{
-//图片
+    //图片
 	public  Image img;
 //坐标
 	public int x;
@@ -43,8 +43,4 @@ public abstract class Boss extends GameObject{
 	public abstract void paintSelft(Graphics g);
         @Override
 	public abstract Rectangle getRec();
-        public abstract int skill1();
-        public abstract int skill2();
-        public abstract int skill3();
-        public abstract int skill4();
 }

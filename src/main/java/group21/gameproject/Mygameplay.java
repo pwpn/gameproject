@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package group21.gameproject;
-import account.User;
+
 import java.awt.Button;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -39,14 +39,12 @@ public class Mygameplay extends JFrame{
      static Mygameplay output=null;
     
     public static void main(String[] args){
-        
-        User.stateCheck();
         output=new Mygameplay();
    }
     
      public Mygameplay(){
 
-         SoundBG sbg=new SoundBG("src/data/rsc/Music/startbgm.wav");
+         SoundBG sbg=new SoundBG("src/data/music/startbgm.wav");
          sbg.start();
 
 //        newi=new painti();
@@ -55,7 +53,7 @@ public class Mygameplay extends JFrame{
 //        butt.setBackground(Color.red);
         init();
 //        this.getLayeredPane().add(newi,new Integer(Integer.MIN_VALUE));
-        this.setIconImage(new ImageIcon("src/data/rsc/pic/008.png").getImage());
+        this.setIconImage(new ImageIcon("src/data/pic/photo/008.png").getImage());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
@@ -80,15 +78,15 @@ public class Mygameplay extends JFrame{
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Mygameplay.class.getName()).log(Level.SEVERE, null, ex);
                 } 
-                     new GameFirstP();
+                     new GameFirstP(new Theman("src/data/pic/photo/actor_d.gif",0,0,new JFrame()),1);
 		}			
 	} );
         
-//        butt.repaint();
+//       butt.repaint();
      }
      
      public void init(){
-        ImageIcon icon = new ImageIcon("src/data/rsc/pic/009.png");
+        ImageIcon icon = new ImageIcon("src/data/pic/photo/009.png");
         butt=new JButton("Wake Up!",icon);
          
         newi=new painti();
@@ -114,14 +112,14 @@ class painti extends JPanel{
     @Override
     public void paint(Graphics g){
         super.paint(g);
-        Image start=Toolkit.getDefaultToolkit().getImage("src/data/rsc/pic/start.png");
+        Image start=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/start.png");      
         g.drawImage(start, 0, 0, this);
         
         g.drawLine(10,10,300,300);
         
         g.fillRect(60, 60, 10, 100);
 
-        Image im=Toolkit.getDefaultToolkit().getImage("src/data/rsc/pic/actor_d.gif");
+        Image im=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/actor_d.gif");
 
         g.drawImage(im, 400, 300, this);
 
