@@ -198,6 +198,8 @@ public class SignUpFrame extends javax.swing.JFrame {
     private void SignUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpButtonActionPerformed
         Boolean ContextConfirmed=false;
         SignCheck sc=new SignCheck();
+        User.Password=sc.PasswordTrans(this.PasswordField);
+        User.UserName=this.UserNameText.getText();
         switch(sc.CheckTexts(this.UserNameText, "abcdefghijklmnopqrstuvwxyz1234567890", 3, 10)){
             case 0:switch(sc.CheckTexts(this.PasswordField, null, 6, 20)){
                 case 0:

@@ -25,14 +25,10 @@ public class DerbyUser {
     //private static final String url="jdbc:derby://localhost:1527/Account;create=true";
     //private static final String DerbyUserName="Test";
     //private static final String DerbyUserPassword="123";
-    private String UserName;
-    private String Password;
     Connection connection;
     private Statement statement;
     private boolean isConnected=false;
     private boolean isStateCreated=false;
-    
-    public DerbyUser(String un,String pswd){UserName=un;Password=pswd;}
     //Only the register need to input these actually, so the below one is still ok.
     public DerbyUser(){}
     public void Recheck() throws SQLException{
@@ -41,10 +37,7 @@ public class DerbyUser {
             //Select password from account where userid=...
             rs=statement.executeQuery("Select password,username,progress,level from account where userid="+String.valueOf(User.UserID));
             rs.next();
-            this.Password=rs.getString(1);
-            this.UserName=rs.getString(2);
-            User.UserName=this.UserName;
-            User.Password=this.Password;
+            
             User.Progress=rs.getInt(3);
             User.Level=rs.getInt(4);
         }
@@ -123,7 +116,7 @@ public class DerbyUser {
     public int Register() throws SQLException{
         ResultSet rs;
         if(Connect()&&StatementCreate()){
-                rs = statement.executeQuery("select count(username) from account where username='"+UserName+"'");
+                rs = statement.executeQuery("select count(username) from account where username='"+User.UserName+"'");
                 rs.next();
                 if(rs.getInt(1)!=0)
                     return 1;
@@ -135,7 +128,7 @@ public class DerbyUser {
             //Create ID
             int ID=10001+rs.getInt(1);
         try {
-            this.Insert("Account","UserID","Username","Password",String.valueOf(ID),Quote(UserName,0),Quote(Password,0));
+            this.Insert("Account","UserID","Username","Password",String.valueOf(ID),Quote(User.UserName,0),Quote(User.Password,0));
         } catch (Exception ex) {
             Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Error occurs while adding", ex);
             return 3;}

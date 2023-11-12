@@ -41,8 +41,8 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="idlabel" min="-2" max="-2" attributes="0"/>
                                   <Component id="namelabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="proglabel" min="-2" max="-2" attributes="0"/>
                                   <Component id="lvlabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="proglabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -51,13 +51,14 @@
                               <Component id="datelabel" min="-2" pref="191" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace pref="2" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="WelcomeLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="PswdChange" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="LogoutLabel" alignment="1" min="-2" max="-2" attributes="0"/>
