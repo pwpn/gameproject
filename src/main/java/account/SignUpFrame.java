@@ -224,12 +224,11 @@ public class SignUpFrame extends javax.swing.JFrame {
         if(ContextConfirmed){
             this.HintLabel.setForeground(new Color(0,0,0));
             this.HintLabel.setText("Context checked, now connecting...");
-            DerbyUser Dbu=new DerbyUser(this.UserNameText.getText(),sc.PasswordTrans(ConfirmField));
-            if(Dbu.Connect()&&Dbu.StatementCreate())
+            if(User.Dbu.Connect()&&User.Dbu.StatementCreate())
                 {
                     this.HintLabel.setText("Connect successfully, account creating...");
                 try {
-                    switch(Dbu.Register()){
+                    switch(User.Dbu.Register()){
                         case 0:this.HintLabel.setText("The account has been created successfully");
                         this.HintLabel.setForeground(new Color(34,177,76));
                         break;

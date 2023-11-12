@@ -20,15 +20,18 @@ import java.util.logging.Logger;
 //2 As a public code of connection failure.
 //3 tells issues inside
 public class DerbyUser {
-    private static final String url="jdbc:derby://localhost:1527/Account;create=true";
-    private static final String DerbyUserName="Test";
-    private static final String DerbyUserPassword="123";
+    //make embedded
+    private static final String url="jdbc:derby:Account_Ebd; create=true";
+    //private static final String url="jdbc:derby://localhost:1527/Account;create=true";
+    //private static final String DerbyUserName="Test";
+    //private static final String DerbyUserPassword="123";
     private String UserName;
     private String Password;
     Connection connection;
     private Statement statement;
     private boolean isConnected=false;
     private boolean isStateCreated=false;
+    
     public DerbyUser(String un,String pswd){UserName=un;Password=pswd;}
     //Only the register need to input these actually, so the below one is still ok.
     public DerbyUser(){}
@@ -45,23 +48,34 @@ public class DerbyUser {
             User.Progress=rs.getInt(3);
             User.Level=rs.getInt(4);
         }
-    
     }
     public boolean Connect(){
         if(!isConnected)
             try {
-                //Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-                connection=DriverManager.getConnection(url,DerbyUserName,DerbyUserPassword);
-            } catch (SQLException ex) {
-                Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Connection Failed", ex);
-                isConnected=false;
-                return false;
-            } 
+                try {
+                        Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Can not find the embeddedDriver, please check the integrity", ex);
+                    }
+                    //connection=DriverManager.getConnection(url,DerbyUserName,DerbyUserPassword);
+                connection=DriverManager.getConnection("jdbc:derby:Account_Ebd");
+                } catch (SQLException ex) {
+                    Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Connection Failed", ex);
+                    isConnected=false;
+                    return false;
+                } 
             /*
             catch (ClassNotFoundException ex) {
             Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Driver not found", ex);
         } */
         return true;
+    }
+    public void Disconnect(){
+            try {
+                connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Failed to disconnect, please check the current state", ex);
+        }
     }
     public boolean StatementCreate(){
         try {
@@ -121,8 +135,7 @@ public class DerbyUser {
             //Create ID
             int ID=10001+rs.getInt(1);
         try {
-            this.Insert("Test.Account","UserID","Username","Password",String.valueOf(ID),Quote(UserName,0),Quote(Password,0));
-            
+            this.Insert("Account","UserID","Username","Password",String.valueOf(ID),Quote(UserName,0),Quote(Password,0));
         } catch (Exception ex) {
             Logger.getLogger(DerbyUser.class.getName()).log(Level.SEVERE, "Error occurs while adding", ex);
             return 3;}
@@ -148,6 +161,14 @@ public class DerbyUser {
             if(Connect()&&StatementCreate()){
                 //Update Account set password='123456' where userid=123
                 statement.executeUpdate("Update "+TableName+" set "+Column+"="+String.valueOf(Content)+" where userid="+User.UserID);
+            }else
+                return 2;
+                return 0;
+        }
+        public int UpdateData(int progress, int level) throws SQLException{
+            if(Connect()&&StatementCreate()){
+                //Update Account set password='123456' where userid=123
+                statement.executeUpdate("Update Account set progress="+String.valueOf(progress)+",level="+String.valueOf(level)+" where userid="+String.valueOf(User.UserID));
             }else
                 return 2;
                 return 0;

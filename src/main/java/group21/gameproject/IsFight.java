@@ -36,7 +36,7 @@ public class IsFight {
         this.i=i;
         JFrame frame = new JFrame("是否挑战？");
         frame.setBounds(400, 300, 400, 100);
-        frame.setIconImage(new ImageIcon("src/data/pic/photo/008.png").getImage());
+        frame.setIconImage(new ImageIcon("src/photo/008.png").getImage());
 
         /*
         JDialog d1 = new JDialog(frame, "模式对话框", true);

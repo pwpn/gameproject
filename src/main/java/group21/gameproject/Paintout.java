@@ -94,7 +94,7 @@ public class Paintout extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 po=new Paintout();
-                Image img=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/008.png");
+                Image img=Toolkit.getDefaultToolkit().getImage("src/photo/008.png");
                 po.setIconImage(img);
                 po.setVisible(true);
             }

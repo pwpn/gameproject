@@ -232,10 +232,10 @@ public class UserFrame extends javax.swing.JFrame {
             switch(result){
                 case 0:String newpswd2=JOptionPane.showInputDialog(null,"Please Input The New Password Again:","Hint",3);
                 if(newpswd2.equals(newpswd)){
-                    DerbyUser Dbu=new DerbyUser(User.UserName,User.Password);
+
                 try {
-                    Dbu.UpdateData("Account", "Password", newpswd);
-                    Dbu.Recheck();
+                    User.Dbu.UpdateData("Account", "Password", newpswd);
+                    User.Dbu.Recheck();
                     JOptionPane.showMessageDialog(null,"Change successfully!","Success",1);
                 } catch (SQLException ex) {
                     Logger.getLogger(UserFrame.class.getName()).log(Level.SEVERE, "Update Failed", ex);

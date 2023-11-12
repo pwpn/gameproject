@@ -39,9 +39,14 @@ public class Tatakai extends JFrame{
     
     Theman tm;
         
-    Boss1 boss1=new Boss1("",650,150,new JFrame());static int bossi=0; 
-        
-        
+    Boss1 boss1=new Boss1("",650,150,new JFrame());static int bossi=0;static int ysi=0; 
+    static int boo=0;
+    static int boo1=0;static int boo2=0;static int boo3=0;static int boo4=0;
+    Boooo bo=new Boooo("",100,80,new JFrame());
+    Boooo bo1=new Boooo("",600,80,new JFrame());
+    Boooo bo2=new Boooo("",200,100,new JFrame());
+    Boooo bo3=new Boooo("",350,0,new JFrame());
+    Boooo bo4=new Boooo("",200,200,new JFrame());    
     public Yourself ys;
         
     private int a=0;
@@ -51,7 +56,7 @@ public class Tatakai extends JFrame{
     
     private static JFrame jfi=new JFrame();
     
-    SoundBG fsbg=new SoundBG("src/data/music/fight.wav");
+    SoundBG fsbg=new SoundBG("src/music/fight.wav");
     
     public cs csc=null;
     
@@ -68,11 +73,11 @@ public class Tatakai extends JFrame{
     
     public Tatakai(Theman tm){
         this.tm=tm;
-        ys=new Yourself("src/data/pic/photo/jinlin.png",100,100,new JFrame(),tm);
+        ys=new Yourself("src/manba/jinlin.png",100,100,new JFrame(),tm);
 //        jfi.add(this);
         init();
        
-        this.setIconImage(new ImageIcon("src/data/pic/photo/009.png").getImage());
+        this.setIconImage(new ImageIcon("src/photo/009.png").getImage());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
@@ -121,14 +126,13 @@ public class Tatakai extends JFrame{
                    }
         }).start();
         
-        new Timer(200, new ActionListener(){
+        new Timer(180, new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 
                 if(bossi<=3){
                     Image bossimg=boss1.imgg[bossi++];
                     boss1.img=bossimg;
-                    ys.img=bossimg;
                     if(bossi==3){
                         bossi=0;
                     }
@@ -150,11 +154,95 @@ public class Tatakai extends JFrame{
                     }
                 }
                 
+                if(ysi<=2){
+                    Image ysimg=ys.imgg[ysi++];   
+                    ys.img=ysimg;
+                    if(ysi==2){
+                        ysi=0;
+                    }
+                }else if(ysi>=3&&ysi<11){
+                    Image ysimg=ys.imgg[ysi++];
+                    ys.img=ysimg;
+                    ys.x+=40;
+                    if(ysi==11){
+                        ysi=0;
+                        ys.x=100;
+                    }
+                }else{
+                        Image ysimg=ys.imgg[ysi++];
+                        ys.img=ysimg;
+                        ys.x+=120; 
+                        if(ysi==15){
+                            ysi=0;
+                            ys.x=100;
+                        }
+                }
+                
+                texiao();
+                
                 repaint();
             }
         }).start();
 //        SwingUtilities.updateComponentTreeUI(this);
 //          xxrun.run();yyrun.run();
+    }
+    
+    private void texiao(){
+        if(boo==0){
+//                    Image boimg=bo.yimg[boo];
+                    bo.img=null;
+                }
+        else{
+                    Image boimg=bo.yimg[(boo++)-1];
+                    bo.img=boimg;
+                    if(boo==13){
+                        boo=0;
+                   }
+        }
+        
+        if(boo1==0){
+                    bo1.img=null;
+                }
+        else{
+                    Image boimg=bo1.imgg[(boo1++)-1];
+                    bo1.img=boimg;
+                    if(boo1==9){
+                        boo1=0;
+                   }
+        }
+        
+        if(boo2==0){
+                    bo2.img=null;
+                }
+        else{
+                    Image boimg=bo2.imgg1[(boo2++)-1];
+                    bo2.img=boimg;
+                    if(boo2==8){
+                        boo2=0;
+                   }
+        }
+        
+        if(boo3==0){
+                    bo3.img=null;
+                }
+        else{
+                    Image boimg=bo3.imgg2[(boo3++)-1];
+                    bo3.img=boimg;
+                    if(boo3==5){
+                        boo3=0;
+                   }
+        }
+        
+        if(boo4==0){
+                    bo4.img=null;
+                }
+        else{
+                    Image boimg=bo4.imgg3[(boo4++)-1];
+                    bo4.img=boimg;
+                    if(boo4==5){
+                        boo4=0;
+                   }
+        }
     }
     
 
@@ -172,11 +260,11 @@ public class Tatakai extends JFrame{
         csc.add(jbb3);
         csc.add(jbb4);
         
-        this.aff(superjb,0,"src/data/pic/photo/chaobisha.png","src/data/pic/photo/chaobishaww.png");
-        this.aff(jbb1,250,"src/data/pic/photo/jineng1.png","src/data/pic/photo/jineng1ww.png");
-        this.aff(jbb2,436,"src/data/pic/photo/jineng2.png","src/data/pic/photo/jineng2ww.png");
-        this.aff(jbb3,617,"src/data/pic/photo/jineng3.png","src/data/pic/photo/jineng3ww.png");
-        this.aff(jbb4,800,"src/data/pic/photo/jineng4.png","src/data/pic/photo/jineng4ww.png");         
+        this.aff(superjb,0,"src/photo/chaobisha.png","src/photo/chaobishaww.png");
+        this.aff(jbb1,250,"src/photo/jineng1.png","src/photo/jineng1ww.png");
+        this.aff(jbb2,436,"src/photo/jineng2.png","src/photo/jineng2ww.png");
+        this.aff(jbb3,617,"src/photo/jineng3.png","src/photo/jineng3ww.png");
+        this.aff(jbb4,800,"src/photo/jineng4.png","src/photo/jineng4ww.png");         
 
 //        superjb.setContentAreaFilled(false);
 //        this.repaint();
@@ -189,7 +277,7 @@ public class Tatakai extends JFrame{
         superjb.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                issuper=0;
+                issuper=0;ysi=11;boo2=1;
                 double shang=ys.chaobisha(ys.yourattack,boss1.b1nowdefence);
                 if((boss1.b1nowblood-shang)>=0){
                     boss1.b1nowblood-=shang;
@@ -203,9 +291,7 @@ public class Tatakai extends JFrame{
                   boss1.blattlev-=1;                  
                 }
                 repaint();
-                gameresult();
-                bossattack();
-                gameresult();                
+                bossattack();   repaint();            
             }
             
         });
@@ -213,17 +299,16 @@ public class Tatakai extends JFrame{
         jbb1.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                offbutton();
+                offbutton();boo=1;
                 if(issuper<4){
                    issuper++;
                 }
                 ys.jineng1();
                 repaint();
-                gameresult();
 
                 bossattack();
                 
-                gameresult();        
+                repaint();      
                 onbutton();
             }
             
@@ -235,7 +320,7 @@ public class Tatakai extends JFrame{
                 offbutton();
                 if(issuper<4){
                    issuper++;
-                }
+                }ysi=3;
 
                 double shang=ys.jineng2(ys.yourattack,boss1.b1nowdefence);
                 if((boss1.b1nowblood-shang)>=0){
@@ -250,11 +335,11 @@ public class Tatakai extends JFrame{
                System.out.println(boss1.b1nowdefence);
                
                
-               repaint();gameresult(); 
+               repaint();
                     
                bossattack();
                repaint();
-                gameresult(); onbutton();  
+                 onbutton();  
             }
             
         });
@@ -262,10 +347,10 @@ public class Tatakai extends JFrame{
         jbb3.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                offbutton();
+                offbutton();boo4=1;
                 if(issuper<4){
                    issuper++;
-                }
+                }ysi=3;
                 
                 if(ys.yourspeed>=boss1.b1speed){
                     
@@ -281,7 +366,7 @@ public class Tatakai extends JFrame{
                 }else{
                     bossattack();      repaint();//gameresult();             
                           
-                    double shang=ys.jineng3(ys.yourattack,boss1.b1nowdefence)*100;
+                    double shang=ys.jineng3(ys.yourattack,boss1.b1nowdefence);
                     if((boss1.b1nowblood-shang)>=0){
                         boss1.b1nowblood-=shang;
                     }else{
@@ -298,23 +383,23 @@ public class Tatakai extends JFrame{
         jbb4.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                offbutton();
+                offbutton();boo=1;
                 if(issuper<4){
                    issuper++;
                 }
                 if(ys.yourspeed>=boss1.b1speed){
-                    ys.jineng4(); repaint();gameresult();
+                    ys.jineng4(); repaint();
                    
                     bossattack();
                     
                 }else{
-                    bossattack(); repaint();gameresult();
+                    bossattack(); repaint();
                     
                     ys.jineng4();                    
                 }
                 shenji=0;
                 repaint();
-                gameresult();                 onbutton();  
+                                 onbutton();  
             }
             
         });
@@ -323,8 +408,8 @@ public class Tatakai extends JFrame{
     //boss出招
     public void bossattack(){
         switch(boss1.randomm()){
-            case 1:
-                double shang=boss1.skill1(boss1.b1nowattack,ys.yourdefence);
+            case 1:boo1=1;
+                double shang=boss1.skill1(boss1.b1nowattack,ys.yourdefence);boo3=1;
                 if((ys.yourblood-shang)>=0){
                     ys.yourblood-=shang;
                 }else{
@@ -333,11 +418,11 @@ public class Tatakai extends JFrame{
                 bossi=5;
                 break;
             case 2:
-                boss1.skill2();
+                boss1.skill2();boo1=1;
                 bossi=4;
                 break;
             case 3:
-                double shan=boss1.skill3(boss1.b1nowattack,ys.yourdefence);
+                double shan=boss1.skill3(boss1.b1nowattack,ys.yourdefence);boo3=1;
                if((ys.yourblood-shan)>=0){
                     ys.yourblood-=shan;
                 }else{
@@ -346,7 +431,7 @@ public class Tatakai extends JFrame{
                 bossi=5;
                 break;
             case 4:
-                boss1.skill4();
+                boss1.skill4();boo1=1;
                 bossi=4;
                 break;
         }
@@ -387,7 +472,7 @@ public class Tatakai extends JFrame{
     }
     
     class cs extends JPanel{
-        
+                
             @Override
             public void paintComponent(Graphics g){
                 super.paintComponent(g);
@@ -397,12 +482,12 @@ public class Tatakai extends JFrame{
                 }
         
                 Graphics gImage=ScreemImage.getGraphics(); 
-                Image background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/fightbgm.jpg");//fightbgm.jpg
+                Image background=Toolkit.getDefaultToolkit().getImage("src/photo/fightbgm.jpg");//fightbgm.jpg
                 gImage.drawImage(background, 0, 0, this);
                 
-                gImage.drawImage(Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/jnl.png"),0,370,this);
+                gImage.drawImage(Toolkit.getDefaultToolkit().getImage("src/photo/jnl.png"),0,370,this);
                 
-                gImage.drawImage(Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/timer.png"), 420 ,-15, this);
+                gImage.drawImage(Toolkit.getDefaultToolkit().getImage("src/photo/timer.png"), 420 ,-15, this);
                 
 //                Timer time=new Timer();
 //            for(int i=0;i>=0;i++){
@@ -466,7 +551,7 @@ public class Tatakai extends JFrame{
                 //boss
                 boss1.paintSelft(gImage);
                 //
-                
+                bo.paintSelft(gImage);bo1.paintSelft(gImage);bo2.paintSelft(gImage);bo3.paintSelft(gImage);bo4.paintSelft(gImage);
                 
                 g.drawImage(ScreemImage, 0, 0, null);
                 gameresult();setisdead();
@@ -497,10 +582,10 @@ public class Tatakai extends JFrame{
         
         if(boss1.b1nowblood<=0&&isdead){       fsbg.stop();
             System.out.println("win");
-            tm.level++;tm.update();
-            User.setProgress(1);
-            User.setLevel(tm.level);
             
+            tm.level++;tm.update();
+            User.setProgress(2);
+            User.CheckUserFrame();
             Winorlose ws=new Winorlose(tm,1,2);
             ys.updateys(tm);
             ys.returnyou();

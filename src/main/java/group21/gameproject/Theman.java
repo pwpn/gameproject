@@ -4,6 +4,7 @@
  */
 package group21.gameproject;
 
+import account.User;
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,6 +13,9 @@ import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -65,6 +69,13 @@ public class Theman extends GameObject{
         this.attack=attack+20*(level-1);
         this.blood=blood+50*(level-1);
         this.defence=defence+10*(level-1); 
+        User.setLevel(level);
+        User.CheckUserFrame();
+        try {
+            User.SaveData();
+        } catch (SQLException ex) {
+            Logger.getLogger(Theman.class.getName()).log(Level.SEVERE, "Failed to save", ex);
+        }
     }
     
     public void strong(int a,int d,int b){

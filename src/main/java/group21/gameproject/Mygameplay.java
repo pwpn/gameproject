@@ -41,14 +41,15 @@ public class Mygameplay extends JFrame{
      static Mygameplay output=null;
     
     public static void main(String[] args){
-        //Try to login here
+        //Check the connection state
         User.stateCheck();
+        
         output=new Mygameplay();
    }
     
      public Mygameplay(){
 
-         SoundBG sbg=new SoundBG("src/data/music/startbgm.wav");
+         SoundBG sbg=new SoundBG("src/music/startbgm.wav");
          sbg.start();
 
 //        newi=new painti();
@@ -57,7 +58,7 @@ public class Mygameplay extends JFrame{
 //        butt.setBackground(Color.red);
         init();
 //        this.getLayeredPane().add(newi,new Integer(Integer.MIN_VALUE));
-        this.setIconImage(new ImageIcon("src/data/pic/photo/008.png").getImage());
+        this.setIconImage(new ImageIcon("src/photo/008.png").getImage());
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
@@ -73,17 +74,7 @@ public class Mygameplay extends JFrame{
 	    @Override
             @SuppressWarnings("CallToThreadStopSuspendOrResumeManager")
 		public void actionPerformed(ActionEvent e)
-		{   int prog=0;
-                    User.isPlaying=true;
-                    //Get Save when start
-                    User.GetSave();
-                    if(!User.isOnline())
-                        JOptionPane.showMessageDialog(null,"未登录，游戏记录将不会记载！","Guest",0);
-                    else
-                        prog=User.getProgress();
-                    //Dispose the frame anyway.
-                    System.out.print(User.isOnline());
-                    User.DisposeSignInFrame();
+		{   User.isPlaying=true;
                     System.out.println("yes");
                     output.dispose();
                     sbg.stop();
@@ -92,7 +83,21 @@ public class Mygameplay extends JFrame{
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Mygameplay.class.getName()).log(Level.SEVERE, null, ex);
                 } 
-                     new GameFirstP(new Theman("src/data/pic/photo/actor_d.gif",0,0,new JFrame()),1+prog);
+                    int progress=1;
+                    //进入游戏时进行检查是否获得了存档
+                     if(User.isOnline()){
+                        User.GetSave();
+                        progress=User.getProgress();
+                     }else
+                          JOptionPane.showMessageDialog(null,"未登录，游戏记录将不会记载！","Guest",0);
+                     if(progress<1||progress>4)
+                     {
+                         User.setProgress(1);
+                         JOptionPane.showMessageDialog(null,"Wrong progress, now reset to 1","Failed to logout",1);
+                         progress=1;
+                     }
+                     User.DisposeSignInFrame();
+                     new GameFirstP(new Theman("src/photo/actor_d.gif",0,0,new JFrame()),progress);
 		}			
 	} );
         
@@ -100,7 +105,7 @@ public class Mygameplay extends JFrame{
      }
      
      public void init(){
-        ImageIcon icon = new ImageIcon("src/data/pic/photo/009.png");
+        ImageIcon icon = new ImageIcon("src/photo/009.png");
         butt=new JButton("Wake Up!",icon);
          
         newi=new painti();
@@ -121,33 +126,31 @@ public class Mygameplay extends JFrame{
 //        butt.setVisible(true);   
      }
         
-class painti extends JPanel{  
-    
-    @Override
-    public void paint(Graphics g){
-        super.paint(g);
-        Image start=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/start.png");      
-        g.drawImage(start, 0, 0, this);
-        
-        g.drawLine(10,10,300,300);
-        
-        g.fillRect(60, 60, 10, 100);
+    class painti extends JPanel{  
 
-        Image im=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/actor_d.gif");
+        @Override
+        public void paint(Graphics g){
+            super.paint(g);
+            Image start=Toolkit.getDefaultToolkit().getImage("src/photo/start.png");      
+            g.drawImage(start, 0, 0, this);
 
-        g.drawImage(im, 400, 300, this);
+            g.drawLine(10,10,300,300);
 
-//        im.getGraphics();
-        g.setColor(Color.RED);
-        g.setFont(new Font("华文彩云",Font.BOLD,20));
-        g.drawString( "你好！欢迎进入原神的世界", 200, 370);
-        g.setColor(Color.BLUE);
-        g.drawString( "按按钮以继续", 250, 400);
-     
-        butt.repaint();
+            g.fillRect(60, 60, 10, 100);
+
+            Image im=Toolkit.getDefaultToolkit().getImage("src/photo/actor_d.gif");
+
+            g.drawImage(im, 400, 300, this);
+    //        im.getGraphics();
+            g.setColor(Color.RED);
+            g.setFont(new Font("华文彩云",Font.BOLD,20));
+            g.drawString( "你好！欢迎进入原神的世界", 200, 370);
+            g.setColor(Color.BLUE);
+            g.drawString( "按按钮以继续", 250, 400);
+
+            butt.repaint();
+        }
     }
-}
-     
 }
 
 

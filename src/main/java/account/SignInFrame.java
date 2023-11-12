@@ -182,22 +182,21 @@ public class SignInFrame extends javax.swing.JFrame {
         //Check The Input
        String Username=this.UserNameText.getText();
        String Password=sc.PasswordTrans(PasswordField);
-       DerbyUser Dbu=new DerbyUser(Username,Password);
        if(sc.CheckTexts(UserNameText, "abcdefghijklmnopqrstuvwxyz12345667890", 3, 10)+sc.CheckTexts(PasswordField, null, 6, 20)>0){
-           this.HintLabel.setText("Username has illegal characters");
+           this.HintLabel.setText("Please check your input");
            this.HintLabel.setForeground(new Color(255,0,0));
        }else{
            this.HintLabel.setText("Connecting to the server...");
            this.HintLabel.setForeground(new Color(0,0,0));
-           if(Dbu.Connect()&&Dbu.StatementCreate()){
+           if(User.Dbu.Connect()&&User.Dbu.StatementCreate()){
                try {
-                ResultSet rs = Dbu.getStatement().executeQuery("select count(username) from account where username='"+Username+"'");
+                ResultSet rs = User.Dbu.getStatement().executeQuery("select count(username) from account where username='"+Username+"'");
                 rs.next();
                 if(rs.getInt(1)==0){
                     this.HintLabel.setText("Invaild Username");
                     this.HintLabel.setForeground(new Color(255,0,0));
                 }else{
-                rs=Dbu.getStatement().executeQuery("select availability from account where username="+Dbu.Quote(Username, 0));
+                rs=User.Dbu.getStatement().executeQuery("select availability from account where username="+User.Dbu.Quote(Username, 0));
                 rs.next();
                 if(!rs.getBoolean(1)){
                     this.HintLabel.setText("The account has been banned");
@@ -205,19 +204,19 @@ public class SignInFrame extends javax.swing.JFrame {
                     else
                     {
                         //Check the password
-                        rs = Dbu.getStatement().executeQuery("select password from account where username="+Dbu.Quote(Username, 0));
+                        rs = User.Dbu.getStatement().executeQuery("select password from account where username="+User.Dbu.Quote(Username, 0));
                         rs.next();
                         if(rs.getString(1) == null ? Password == null : rs.getString(1).equals(Password)){
                         //Login successfully
                         this.HintLabel.setText("Sign in successfully");
                         this.HintLabel.setForeground(new Color(34,177,76));
-                        rs = Dbu.getStatement().executeQuery("select userid from account where username="+Dbu.Quote(Username, 0));
+                        rs = User.Dbu.getStatement().executeQuery("select userid from account where username="+User.Dbu.Quote(Username, 0));
                         rs.next();
                         User.UserID=rs.getInt(1);
                         User.UserName=Username;
                         User.Password=Password;
                         User.isOnline=true;
-                        rs = Dbu.getStatement().executeQuery("select Progress,Level from account where userid="+String.valueOf(User.UserID));
+                        rs = User.Dbu.getStatement().executeQuery("select Progress,Level from account where userid="+String.valueOf(User.UserID));
                         rs.next();
                         User.Progress=rs.getInt(1);
                         User.Level=rs.getInt(2);
@@ -272,7 +271,7 @@ public class SignInFrame extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable(){
             public void run() {

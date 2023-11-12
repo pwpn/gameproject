@@ -32,8 +32,8 @@ public class Winorlose {
     
     private Image backscreen=null;
     
-    private Image win=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/vic.jpg");
-    private Image lose=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/lose.jpg");    
+    private Image win=Toolkit.getDefaultToolkit().getImage("src/photo/vic.jpg");
+    private Image lose=Toolkit.getDefaultToolkit().getImage("src/photo/lose.jpg");    
     static int i=0;  
     int x=0;
     backgrou bg=new backgrou();
@@ -42,7 +42,7 @@ public class Winorlose {
 
         this.i=i;
         JFrame frame = new JFrame("战斗结束");
-        frame.setIconImage(new ImageIcon("src/data/pic/photo/008.png").getImage());
+        frame.setIconImage(new ImageIcon("src/photo/008.png").getImage());
 
         /*
         JDialog d1 = new JDialog(frame, "模式对话框", true);
@@ -79,6 +79,7 @@ public class Winorlose {
         }
         else{
             frame.setBounds(350, 200, 268,147);
+            GameFirstP gameFirstP= new GameFirstP(tm,next-1);
         }
         frame.add(bg);
         //把按钮添加到frame中

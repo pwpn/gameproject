@@ -60,7 +60,7 @@ public class Boss1 extends Boss{
 
         for(int i = 1;i < imgg.length + 1;i ++){
                 try{
-                    imgg[i - 1] = ImageIO.read(new File("src/data/pic/boss1/boss1" + i + ".png"));
+                    imgg[i - 1] = ImageIO.read(new File("src/boss1/boss1" + i + ".png"));
                 } catch (IOException ex) {
                     Logger.getLogger(Boss1.class.getName()).log(Level.SEVERE, null, ex);
                 }

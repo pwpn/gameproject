@@ -36,7 +36,7 @@ import javax.swing.text.View;
 
 public class GameFirstP extends JFrame{
     
-    SoundBG sbg=new SoundBG("src/data/music/placebgm.wav");
+    SoundBG sbg=new SoundBG("src/music/placebgm.wav");
     
     private static int bosswho=1;
     
@@ -61,19 +61,19 @@ public class GameFirstP extends JFrame{
         this.jindu=jindu;System.out.println("jinduis"+jindu);
         switch(jindu){
             case 1:
-                boss=new Boss1("src/data/pic/photo/boss1.png",500,50,this);break;
+                boss=new Boss1("src/photo/boss1.png",500,50,this);break;
             case 2:
-                boss=new Boss2("src/data/pic/photo/boss2.png",500,10,this);break;
+                boss=new Boss2("src/photo/boss2.png",500,10,this);break;
             case 3:
-                boss=new Boss3("src/data/pic/photo/boss3.png",500,50,this);break;
+                boss=new Boss3("src/photo/boss3.png",500,50,this);break;
             case 4:
-                boss=new Boss4("src/data/pic/photo/boss4.png",500,10,this);break;
+                boss=new Boss4("src/photo/boss4.png",500,10,this);break;
         }
         this.tm=tm;
         sbg.start();
         inti();
         basedi.add(pa);
-        basedi.setIconImage(new ImageIcon("src/data/pic/photo/008.png").getImage());
+        basedi.setIconImage(new ImageIcon("src/photo/008.png").getImage());
         basedi.setLocationRelativeTo(null);
         basedi.setResizable(false);
 //        basedi.setVisible(true);
@@ -109,12 +109,12 @@ public class GameFirstP extends JFrame{
     }
     
     private void addJB(){
-        jbb.setIcon(new ImageIcon("ssrc/data/pic/photo/truebutton.png"));
+        jbb.setIcon(new ImageIcon("src/photo/truebutton.png"));
         jbb.setBounds(30, 280, 90, 90);
         jbb.setBorderPainted(false);
         jbb.setBorder(null);
         jbb.setContentAreaFilled(false);
-        jbb.setRolloverIcon(new ImageIcon("src/data/pic/photo/button.png"));
+        jbb.setRolloverIcon(new ImageIcon("src/photo/button.png"));
     }
 
     private class Keyhappen implements KeyListener {
@@ -242,15 +242,15 @@ class paintt extends JPanel{
         Graphics gImage =offScreemImage.getGraphics();
         Image background;
         switch(jindu){
-            case 1:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/111.png");
+            case 1:background=Toolkit.getDefaultToolkit().getImage("src/photo/111.png");
                 break;
-            case 2:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/222.png");
+            case 2:background=Toolkit.getDefaultToolkit().getImage("src/photo/222.png");
                 break;
-            case 3:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/333.png");
+            case 3:background=Toolkit.getDefaultToolkit().getImage("src/photo/333.png");
                 break;
-            case 4:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/444.png");
+            case 4:background=Toolkit.getDefaultToolkit().getImage("src/photo/444.png");
                 break;
-            default:background=Toolkit.getDefaultToolkit().getImage("src/data/pic/photo/111.png");break;
+            default:background=Toolkit.getDefaultToolkit().getImage("src/photo/111.png");break;
         }
         gImage.drawImage(background, 0, 0, this);
         

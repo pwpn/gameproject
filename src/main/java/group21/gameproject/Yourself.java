@@ -8,6 +8,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 /**
@@ -15,7 +20,21 @@ import javax.swing.JFrame;
  * @author Lenovo
  */
 public class Yourself extends GameObject{
+    
+    
+//图片
+    public  Image img;
+//坐标
+    public int x;
+    public int y;
+    public boolean left;
+    public boolean right;
+    public boolean up;
+    public boolean down;
 //游戏界面
+    public GameFirstP gp;//=new GameFirstP();
+    public Graphics ghi;
+    public JFrame jf;
     private Theman tm;
     
     private double attack;
@@ -34,6 +53,9 @@ public class Yourself extends GameObject{
     
     public int attlev=0;
     public int deflev=0;
+    
+    public Image[] imgg=new Image[15];    
+    
 	
     public Yourself(String img,int x,int y,JFrame jf,Theman tm){	
         
@@ -56,6 +78,15 @@ public class Yourself extends GameObject{
         yourdefence=defence;
         yourblood=blood;
         lastblood=blood;
+        
+        for(int i = 1;i < imgg.length + 1;i ++){
+            try {
+                imgg[i - 1] = ImageIO.read(new File("src/manba/manba" + i + ".png"));
+            } catch (IOException ex) {
+                java.util.logging.Logger.getLogger(Yourself.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        }
+              
     }
     
 

@@ -20,7 +20,7 @@ public class User {
    static boolean isOnline=false;
    static SignInFrame sf=new SignInFrame();
    static UserFrame uf=new UserFrame();
-   
+   static DerbyUser Dbu=new DerbyUser();
     User(int userid,String username,String password){
         UserID=userid;
         UserName=username;
@@ -34,15 +34,15 @@ public class User {
     public static int getLevel(){return Level;}
     public static void setLevel(int level){User.Level=level;User.CheckUserFrame();}
     public static void SaveData() throws SQLException{
-        DerbyUser Dbu=new DerbyUser(UserName,Password);
-        Dbu.UpdateData("Account", "Level", User.Level);
-        Dbu.UpdateData("Account", "Progress", User.Progress);
+                Dbu.UpdateData(User.Progress, User.Level);
+    }
+    public static void Disconnect(){
+        Dbu.Disconnect();
     }
     public static int GetSave(){
         uf.CheckData();
         if(!isOnline)
             return 1;
-       DerbyUser Dbu=new DerbyUser();
        try {
            Dbu.Recheck();
        } catch (SQLException ex) {
